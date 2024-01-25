@@ -58,5 +58,5 @@ def process_all_election_files(input_directory, output_directory):
 
 # Usage example
 input_directory = "output/combined"
-output_directory = "output/points"
+output_directory = "site/src/points"
 process_all_election_files(input_directory, output_directory)
