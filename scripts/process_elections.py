@@ -1,4 +1,4 @@
-import pyexcel
+import pyexcel, math
 
 
 def load_bloc_data(file_name):
@@ -12,35 +12,43 @@ def load_bloc_data(file_name):
     return bloc_data
 
 
-def extract_codes(row, config):
+def extract_codes(row, config, knesset):
     """Extract locality and station codes, handling different formats based on provided columns."""
-    locality = int(row[config["locality_col"]])
-    station = int(row[config["station_col"]])
+    try:
+        locality = float(row[config["locality_col"]])
+        station = float(row[config["station_col"]])
+    except ValueError:
+        return None, None
 
     if locality == config["military_booth"]:
         return None, None
 
-    return locality, station
+    if knesset in [13, 16, 17]:
+        station /= 10
+
+    return math.floor(locality), math.floor(station)
 
 
 def aggregate_votes(knesset, vote_data, bloc_data, config):
     """Aggregate vote counts for each station and bloc."""
-    results = []
+    aggregated_results = {}
     for row in vote_data:
-        locality, station = extract_codes(row, config)
+        locality, station = extract_codes(row, config, knesset)
         if locality is not None:
             for bloc, excel_column in bloc_data[knesset]:
                 vote_count = int(row[excel_column])
-                results.append(
-                    {
+                key = (knesset, locality, station, bloc)
+                if key not in aggregated_results:
+                    aggregated_results[key] = {
                         "Knesset": knesset,
                         "Locality": locality,
                         "Station": station,
                         "Bloc": bloc,
-                        "Votes": vote_count,
+                        "Votes": 0,
                     }
-                )
-    return results
+                aggregated_results[key]["Votes"] += vote_count
+
+    return list(aggregated_results.values())
 
 
 def process_and_save_knesset_data(knesset, config, bloc_data):
@@ -50,8 +58,8 @@ def process_and_save_knesset_data(knesset, config, bloc_data):
         sheet_name=config["sheet"],
         start_row=config["header_row"],
     )
-    for _ in range(config["skip_rows"]):
-        next(vote_data)
+
+    vote_data = vote_data[config["skip_rows"] :]
 
     results = aggregate_votes(knesset, vote_data, bloc_data, config)
 
@@ -65,7 +73,7 @@ def main():
 
     knesset_data = {
         13: {
-            "book": "data/13/1992 Elections Corrected.xls",
+            "book": "data/13/1992 Elections Corrected.xlsx",
             "sheet": "Corrected",
             "header_row": 2,
             "skip_rows": 1,

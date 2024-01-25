@@ -1,6 +1,7 @@
 import xlrd
 import re
 import pyexcel
+import math
 
 # Regular expressions for processing strings
 number_sub = re.compile(r"(-?[0-9]+\.?[0-9]*)")
@@ -15,18 +16,10 @@ def process_address(address):
     return address.strip()
 
 
-def process_station_number(election_num, row, config):
+def process_station_number(election_num, station_number):
     """Process station number based on election number."""
-    station_num = config["station_num_col"]
-    if election_num in [13, 16, 17]:
-        return row[station_num].value / 10
-    elif election_num == 14:
-        division = config["division_col"]
-        return float(
-            f"{int(round(row[station_num].value, 0))}.{int(round(row[division].value, 0))}"
-        )
-    else:
-        return row[station_num].value
+    divisor = 10 if election_num in {13, 16, 17} else 1
+    return math.floor(station_number / divisor)
 
 
 def read_sheet(election_num, config):
@@ -42,10 +35,14 @@ def read_sheet(election_num, config):
         next(rows)
 
     for row in rows:
-        locality_number = row[config["locality_num_col"]].value
-        if locality_number != "\x1a":
-            station_number = process_station_number(election_num, row, config)
-            locality_number = int(locality_number)
+        try:
+            locality_number = math.floor(float(row[config["locality_num_col"]].value))
+            station_number = float(row[config["station_num_col"]].value)
+        except ValueError:
+            return None, None
+
+        if locality_number and station_number:
+            station_number = process_station_number(election_num, station_number)
             address_name = process_address(str(row[config["address_name_col"]].value))
             locality_name = process_address(str(row[config["locality_name_col"]].value))
 
@@ -64,6 +61,7 @@ def read_sheet(election_num, config):
 def process_elections(election_configs):
     """Process elections based on provided configurations."""
     for election_num, config in election_configs.items():
+        print(f"Processing Knesset: {election_num}")
         read_sheet(election_num, config)
 
 
@@ -77,7 +75,6 @@ election_configs = {
         "station_num_col": 1,
         "locality_name_col": 3,
         "address_name_col": 4,
-        "division_col": 2,
     },
     17: {
         "workbook": "data/17/results_17.xls",

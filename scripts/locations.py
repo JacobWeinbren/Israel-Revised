@@ -45,6 +45,9 @@ def geocode_addresses(addresses, output_file):
     with open(output_file, "a", encoding="utf-8", newline="") as file:
         writer = csv.writer(file, delimiter="\t")
 
+        if os.stat(output_file).st_size == 0:
+            writer.writerow(["Address", "Latitude", "Longitude"])
+
         # Wrap addresses with tqdm for a progress bar
         for address in tqdm(addresses, desc="Geocoding Addresses"):
             if address not in processed_addresses:
