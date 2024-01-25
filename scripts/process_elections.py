@@ -1,193 +1,191 @@
-import pyexcel, ujson
-from collections import defaultdict
+import pyexcel
 
 
 def load_bloc_data(file_name):
     """Load and organise bloc data from a file into a dictionary."""
-    bloc_data = defaultdict(list)
+    bloc_data = {}
     for record in pyexcel.get_records(file_name=file_name):
-        bloc_data[record["Knesset #"]].append((record["Bloc"], record["Excel Name"]))
+        key = record["Knesset #"]
+        if key not in bloc_data:
+            bloc_data[key] = []
+        bloc_data[key].append((record["Bloc"], record["Excel Name"]))
     return bloc_data
 
 
-def aggregate_votes(knesset, vote_data, bloc_data, military_code):
-    """Aggregate vote counts for each station and bloc from the provided data."""
-    voting_results = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
+def extract_codes(row, config):
+    """Extract locality and station codes, handling different formats based on provided columns."""
+    locality = int(row[config["locality_col"]])
+    station = int(row[config["station_col"]])
 
-    for row in vote_data:
-        locality, station = extract_codes(row, knesset, military_code)
-        if locality is not None:
-            for bloc, excel_column in bloc_data[knesset]:
-                vote_count = int(row[excel_column])
-                voting_results[locality][station][bloc] += vote_count
-
-    return voting_results
-
-
-def extract_codes(row, knesset, military_code):
-    """
-    Extract locality and station codes from a row of data, based on Knesset number.
-    Skips military codes.
-    """
-    locality_col = "Locality code" if knesset < 14 else "סמל ישוב"
-    station_col = (
-        "Polling station code"
-        if knesset < 14
-        else "סמל קלפי"
-        if knesset < 19
-        else "מספר קלפי"
-    )
-
-    locality = int(row[locality_col])
-    station = (
-        int(row[station_col]) // 10
-        if knesset in [13, 16, 17]
-        else int(row[station_col])
-    )
-
-    if locality == military_code:
+    if locality == config["military_booth"]:
         return None, None
 
     return locality, station
 
 
-def process_knesset_year(knesset, data_config, bloc_data):
-    """Process voting data for a specific Knesset year."""
+def aggregate_votes(knesset, vote_data, bloc_data, config):
+    """Aggregate vote counts for each station and bloc."""
+    results = []
+    for row in vote_data:
+        locality, station = extract_codes(row, config)
+        if locality is not None:
+            for bloc, excel_column in bloc_data[knesset]:
+                vote_count = int(row[excel_column])
+                results.append(
+                    {
+                        "Knesset": knesset,
+                        "Locality": locality,
+                        "Station": station,
+                        "Bloc": bloc,
+                        "Votes": vote_count,
+                    }
+                )
+    return results
+
+
+def process_and_save_knesset_data(knesset, config, bloc_data):
+    """Process and save voting data for a specific Knesset year."""
     vote_data = pyexcel.get_records(
-        file_name=data_config["book"],
-        sheet_name=data_config["sheet"],
-        start_row=data_config["header_row"],
+        file_name=config["book"],
+        sheet_name=config["sheet"],
+        start_row=config["header_row"],
     )
-    for _ in range(data_config["skip_rows"]):
+    for _ in range(config["skip_rows"]):
         next(vote_data)
-    return aggregate_votes(
-        knesset, vote_data, bloc_data, data_config["military_settlement"]
-    )
+
+    results = aggregate_votes(knesset, vote_data, bloc_data, config)
+
+    file_name = f"output/elections/{knesset}.tsv"
+    pyexcel.save_as(records=results, dest_file_name=file_name)
 
 
 def main():
     """Main function to process and save voting data for multiple Knesset years."""
-    bloc_data = load_bloc_data("blocs.tsv")
-    all_voting_results = {}
+    bloc_data = load_bloc_data("data/Blocs.tsv")
 
     knesset_data = {
         13: {
-            "book": "../../data/13/13_Corrected.xls",
-            "sheet": "1992pol",
+            "book": "data/13/1992 Elections Corrected.xls",
+            "sheet": "Corrected",
             "header_row": 2,
             "skip_rows": 1,
-            "settlement_col": "Locality code",
-            "booth_col": "Polling station code",
-            "military_settlement": None,
+            "locality_col": "Locality code",
+            "station_col": "Polling station code",
+            "military_booth": None,
         },
         14: {
-            "book": "../../data/14/results_14.xls",
+            "book": "data/14/results_14.xls",
             "sheet": "הבחירות לכנסת 1996 לפי קלפי",
             "header_row": 0,
             "skip_rows": 0,
-            "settlement_col": "סמל ישוב",
-            "booth_col": "סמל קלפי",
-            "military_settlement": None,
+            "locality_col": "סמל ישוב",
+            "station_col": "סמל קלפי",
+            "military_booth": None,
         },
         15: {
-            "book": "../../data/15/results_15.xls",
+            "book": "data/15/results_15.xls",
             "sheet": "Knesset",
             "header_row": 0,
             "skip_rows": 0,
-            "settlement_col": "סמל ישוב",
-            "booth_col": "קלפי",
-            "military_settlement": 0,
+            "locality_col": "סמל ישוב",
+            "station_col": "קלפי",
+            "military_booth": 0,
         },
         16: {
-            "book": "../../data/16/results_16.xls",
+            "book": "data/16/results_16.xls",
             "sheet": "TOZAOT",
             "header_row": 0,
             "skip_rows": 0,
-            "settlement_col": "סמל ישוב",
-            "booth_col": "סמל קלפי",
-            "military_settlement": 0,
+            "locality_col": "סמל ישוב",
+            "station_col": "סמל קלפי",
+            "military_booth": 0,
         },
         17: {
-            "book": "../../data/17/results_17.xls",
+            "book": "data/17/results_17.xls",
             "sheet": "kalfiyot",
             "header_row": 0,
             "skip_rows": 0,
-            "settlement_col": "סמל ישוב",
-            "booth_col": "מספר קלפי",
-            "military_settlement": 0,
+            "locality_col": "סמל ישוב",
+            "station_col": "מספר קלפי",
+            "military_booth": 0,
         },
         18: {
-            "book": "../../data/18/results_18.xls",
+            "book": "data/18/results_18.xls",
             "sheet": "kalpiot",
             "header_row": 0,
             "skip_rows": 0,
-            "settlement_col": "סמל ישוב",
-            "booth_col": "סמל קלפי",
-            "military_settlement": 0,
+            "locality_col": "סמל ישוב",
+            "station_col": "סמל קלפי",
+            "military_booth": 0,
         },
         19: {
-            "book": "../../data/19/results_19.xls",
-            "sheet": "קובץ תוצאות כנסת 19 לפי ישובים",
+            "book": "data/19/results_19.xls",
+            "sheet": "קובץ תוצאות כנסת 19 לפי ישובים ",
             "header_row": 0,
             "skip_rows": 0,
-            "settlement_col": "סמל ישוב",
-            "booth_col": "מספר קלפי",
-            "military_settlement": 875,
+            "locality_col": "סמל ישוב",
+            "station_col": "מספר קלפי",
+            "military_booth": 875,
         },
         20: {
-            "book": "../../data/20/results_20.xls",
+            "book": "data/20/results_20.xls",
             "sheet": "expb (1)",
             "header_row": 0,
             "skip_rows": 0,
-            "settlement_col": "סמל ישוב",
-            "booth_col": "מספר קלפי",
-            "military_settlement": 875,
+            "locality_col": "סמל ישוב",
+            "station_col": "מספר קלפי",
+            "military_booth": 875,
         },
         21: {
-            "book": "../../data/21/21.xls",
-            "sheet": "Sheet1",
+            "book": "data/21/21.xlsx",
+            "sheet": "expb",
             "header_row": 0,
             "skip_rows": 0,
-            "settlement_col": "סמל ישוב",
-            "booth_col": "מספר קלפי",
-            "military_settlement": 99999,
+            "locality_col": "סמל ישוב",
+            "station_col": "מספר קלפי",
+            "military_booth": 99999,
         },
         22: {
-            "book": "../../data/22/22.xls",
-            "sheet": "Sheet1",
+            "book": "data/22/תוצאות הבחירות 22 לפי קלפיות בישובים.xlsx",
+            "sheet": "תוצאות הבחירות 22 לפי קלפיות בי",
             "header_row": 0,
             "skip_rows": 0,
-            "settlement_col": "סמל ישוב",
-            "booth_col": "קלפי",
-            "military_settlement": 9999,
+            "locality_col": "סמל ישוב",
+            "station_col": "קלפי",
+            "military_booth": 9999,
         },
         23: {
-            "book": "../../data/23/23.xls",
-            "sheet": "Sheet1",
+            "book": "data/23/results_23_by_kalpi.xlsx",
+            "sheet": "expb",
             "header_row": 0,
             "skip_rows": 0,
-            "settlement_col": "סמל ישוב",
-            "booth_col": "קלפי",
-            "military_settlement": 9999,
+            "locality_col": "סמל ישוב",
+            "station_col": "קלפי",
+            "military_booth": 9999,
         },
         24: {
-            "book": "../../data/24/24.xls",
-            "sheet": "Sheet1",
+            "book": "data/24/24.xlsx",
+            "sheet": "expb",
             "header_row": 0,
             "skip_rows": 0,
-            "settlement_col": "סמל ישוב",
-            "booth_col": "קלפי",
-            "military_settlement": 9999,
+            "locality_col": "סמל ישוב",
+            "station_col": "קלפי",
+            "military_booth": 9999,
+        },
+        25: {
+            "book": "data/25/25.xlsx",
+            "sheet": "expb",
+            "header_row": 0,
+            "skip_rows": 0,
+            "locality_col": "סמל ישוב",
+            "station_col": "קלפי",
+            "military_booth": 9999,
         },
     }
 
     for knesset, config in knesset_data.items():
-        print("Processing Knesset:", knesset)
-        voting_results = process_knesset_year(knesset, config, bloc_data)
-        all_voting_results[knesset] = voting_results
-
-    with open("politics.json", "w") as f:
-        ujson.dump(all_voting_results, f)
+        print(f"Processing Knesset: {knesset}")
+        process_and_save_knesset_data(knesset, config, bloc_data)
 
 
 if __name__ == "__main__":
