@@ -1,16 +1,46 @@
 ---
-
+import Map from "../components/Map.astro";
+import Geocoder from "../components/Map.astro";
+import Chart from "../components/Chart.astro";
 ---
 
-<html lang="en">
+<html>
 	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<!-- CSS and Font Links -->
+		<link
+			href="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			#geocoder {
+				position: fixed;
+				top: 10px;
+				left: 10px;
+				z-index: 5;
+			}
+		</style>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<div id="map-container" style="height: 100vh"></div>
+		<div id="geocoder" class="geocoder"></div>
+		<div
+			id="chart-container"
+			class="fixed bottom-0 left-0 w-full max-h-[400px] z-10 flex justify-center"
+		>
+			<canvas id="myChart" class="bg-white rounded border shadow p-4"
+			></canvas>
+		</div>
+
+		<!-- Include Other Components Here -->
+		<Map />
+		<Chart />
 	</body>
 </html>

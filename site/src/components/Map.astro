@@ -1,0 +1,88 @@
+---
+
+---
+
+<div id="map-container" style="height: 100vh"></div>
+
+<script>
+	import { MapboxOverlay as DeckOverlay } from "@deck.gl/mapbox";
+	import { ScatterplotLayer } from "@deck.gl/layers";
+	import points from "../points/13.json";
+	import GL from "@luma.gl/constants";
+	import mapboxgl from "mapbox-gl";
+	import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
+
+	declare global {
+		interface Window {
+			updateChartData: (data: any) => void;
+		}
+	}
+
+	// Your Mapbox Access Token
+	const MAPBOX_TOKEN = import.meta.env.PUBLIC_MAPBOX_TOKEN;
+
+	// Initialize the map
+	export const map = new mapboxgl.Map({
+		container: "map-container",
+		style: "mapbox://styles/mapbox/dark-v11",
+		center: [35.3027, 31.9466],
+		zoom: 7.5,
+		projection: {
+			name: "mercator",
+		},
+		accessToken: MAPBOX_TOKEN,
+	});
+
+	// Function to determine color based on data
+	function getColor(d) {
+		const colors = {
+			l: [239, 68, 68],
+			r: [59, 130, 246],
+			a: [34, 197, 94],
+			c: [234, 179, 8],
+			o: [249, 115, 22],
+			m: [168, 85, 247],
+		};
+		let maxKey = Object.keys(d).reduce((a, b) => (d[a] > d[b] ? a : b));
+		return [...colors[maxKey], 125];
+	}
+
+	// Create a DeckOverlay with a ScatterplotLayer
+	const deck = new DeckOverlay({
+		layers: [
+			new ScatterplotLayer({
+				id: "points-layer",
+				data: points,
+				getPosition: (d) => d.pos,
+				getFillColor: (d) => getColor(d),
+				getRadius: 500,
+				parameters: {
+					[GL.DEPTH_TEST]: false,
+					[GL.BLEND]: true,
+					[GL.BLEND_SRC_RGB]: GL.SRC_ALPHA,
+					[GL.BLEND_DST_RGB]: GL.ONE_MINUS_SRC_ALPHA,
+					[GL.BLEND_EQUATION]: GL.FUNC_ADD,
+				},
+				pickable: true,
+				onHover: ({ object }) => {
+					if (object) {
+						window.updateChartData(object);
+					}
+				},
+			}),
+		],
+	});
+
+	// Add geocoder/search box
+	const geocoder = new MapboxGeocoder({
+		accessToken: MAPBOX_TOKEN,
+		mapboxgl: mapboxgl,
+	});
+
+	const geocoderElement = document.getElementById("geocoder");
+	if (geocoderElement) {
+		geocoderElement.appendChild(geocoder.onAdd(map));
+	}
+
+	map.addControl(deck);
+</script>

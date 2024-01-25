@@ -9,7 +9,7 @@ def process_tsv_file(file_path):
     with open(file_path, newline="", encoding="utf-8") as tsvfile:
         reader = csv.DictReader(tsvfile, delimiter="\t")
         for row in reader:
-            pos_key = (float(row["Latitude"]), float(row["Longitude"]))
+            pos_key = (float(row["Longitude"]), float(row["Latitude"]))
             bloc = row["Bloc"]
             votes = int(row["Votes"]) if row["Votes"].isdigit() else 0
 
