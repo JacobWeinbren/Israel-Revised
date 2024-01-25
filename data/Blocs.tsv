@@ -1,0 +1,426 @@
+Knesset Party ID	Excel Name	Ballot Symbol	Party Name	Knesset #	Bloc
+0		מחל	Likud	12	Right
+1		אמת	Alignment	12	Left
+2		שס	Shas	12	Orthodox
+3		ג	Agudat Yisrael	12	Orthodox
+4		רצ	Ratz	12	Left
+5		ב	National Religious Party	12	Orthodox
+6		ו	Hadash	12	Arab-Israeli
+7		ת	Tehiya	12	Right
+8		מפם	Mapam	12	Left
+9		ץ	Tzomet	12	Right
+10		ט	Moledet	12	Right
+11		הן	Shinui	12	Secular Centre
+12		עץ	Degel HaTorah	12	Orthodox
+13		פ	Progressive List for Peace	12	Arab-Israeli
+14		ע	Arab Democratic Party	12	Arab-Israeli
+15		קמע	Pensioners	12	Micro
+16		מי	Meimad	12	Micro
+17		טע	Derekh Aretz	12	Micro
+18		ענף	Or Movement	12	Micro
+19		קז	Movement for Social Justice	12	Micro
+20		טיף	Yishai – Tribal Israel Together	12	Micro
+21		מעש	Movement for Moshavim	12	Micro
+22		זעמ	Tarshish	12	Micro
+23		ז	Silent Power	12	Micro
+24		קם	Movement for Demobilised Soldiers	12	Micro
+25		יענ	Yemenite Association	12	Micro
+26		זכ	Unity	12	Micro
+0	Alignment	אמת	Labour Party	13	Left
+1	National Religious Party (N.R.P.)	ב	National Religious Party	13	Orthodox
+2	Agudat Yisrael	ג	Agudat Yisrael	13	Orthodox
+3	Da	ד	Da	13	Micro
+4	Daf	דף	Pikanti	13	Micro
+5	Vav	ו	Hadash	13	Arab-Israeli
+6	Zeh	זה	Tzipor	13	Micro
+7	Homeland Movement	ט	Moledet	13	Right
+8	Yad	יד	Hatikva	13	Micro
+9	Yaz	יז	Torah VeAretz	13	Micro
+10	Yam	ים	Natural Law Party	13	Micro
+11	Ki	כי	Tali	13	Micro
+12	Likud	מחל	Likud	13	Right
+13	Citizen's Rights Movement (Ratz)	מרצ	Meretz	13	Left
+14	Nun	נ	On Wheels	13	Micro
+15	Nun Dalet	נד	Movement for Mortgage Affected, Homeless and Demobilised Soldiers	13	Micro
+16	Nun Kafh	נכ	Women's Party	13	Micro
+17	Ayin	ע	Arab Democratic Party	13	Arab-Israeli
+18	Peh	פ	Progressive List for Peace	13	Micro
+19	Tzomet	ץ	Tzomet	13	Right
+20	Kofh	ק	Pensioners, Immigrants and Senior Citizens	13	Micro
+21	Kal	קל	Geulat Yisrael	13	Micro
+22	Kan	קן	New Liberal Party	13	Micro
+23	Shas - Sepharadic Orthodox Party	שס	Shas	13	Orthodox
+24	Tehiya	ת	Tehiya	13	Right
+0	אמת	אמת	Labour Party	14	Left
+1	ב	ב	National Religious Party	14	Orthodox
+2	ג	ג	United Torah Judaism	14	Orthodox
+3	ד	ד	Da'am Workers Party	14	Micro
+4	דן	דן	Settlement Party	14	Micro
+5	הד	הד	The Third Way	14	Secular Centre
+6	ו	ו	Hadash–Balad	14	Arab-Israeli
+7	ז	ז	Man's Rights in the Family Party	14	Micro
+8	ט	ט	Moledet	14	Right
+9	יד	יד	Yamin Yisrael	14	Micro
+10	כן	כן	Yisrael BaAliyah	14	Sectoral
+11	מחל	מחל	Likud	14	Right
+12	מרץ	מרץ	Meretz	14	Left
+13	נ	נ	Ta'al	14	Micro
+14	ע	ע	Ra'am–Mada	14	Arab-Israeli
+15	פ	פ	Gil	14	Micro
+16	פא	פא	Progressive Confederation	14	Micro
+17	ק	ק	Unity for the Defence of New Immigrants	14	Micro
+18	שס	שס	Shas	14	Orthodox
+19	ת	ת	Telem Emuna	14	Micro
+0	אמת	אמת	One Israel	15	Left
+1	ב	ב	National Religious Party	15	Orthodox
+2	ג	ג	United Torah Judaism	15	Orthodox
+3	ד	ד	Balad	15	Arab-Israeli
+4	הד	הד	The Third Way	15	Micro
+5	ו	ו	Hadash	15	Arab-Israeli
+6	ז	ז	Justice for All	15	Micro
+7	זך	זך	Moreshet Avot	15	Micro
+8	יט	יט	National Union	15	Right
+9	ים	ים	Lev LaOlim	15	Micro
+10	יש	יש	Shinui	15	Secular Centre
+11	כן	כן	Yisrael BaAliyah	15	Sectoral
+12	ל	ל	Yisrael Beiteinu	15	Right
+13	ם	ם	One Nation	15	Left
+14	מחל	מחל	Likud	15	Right
+15	מרצ	מרצ	Meretz-Yachad and the Democratic Choice	15	Left
+16	נ	נ	Progressive Center Party	15	Micro
+17	נץ	נץ	Negev Party	15	Micro
+18	עם	עם	United Arab List	15	Arab-Israeli
+19	פ	פ	Pnina Rosenblum	15	Secular Centre
+20	פה	פה	Centre Party	15	Secular Centre
+21	פז	פז	Power for Pensioners	15	Sectoral
+22	ץ	ץ	Tzomet	15	Micro
+23	קז	קז	Casino Party	15	Micro
+24	קם	קם	Da'am Workers Party	15	Micro
+25	קנ	קנ	Ale Yarok	15	Sectoral
+26	קפ	קפ	New Arab Party	15	Micro
+27	קץ	קץ	Tikva	15	Micro
+28	רם	רם	Natural Law Party	15	Micro
+29	רק	רק	Green Party	15	Micro
+30	שס	שס	Shas	15	Orthodox
+0	אמת	אמת	Labour–Meimad	16	Left
+1	ב	ב	National Religious Party	16	Orthodox
+2	ג	ג	United Torah Judaism	16	Orthodox
+3	ד	ד	Balad	16	Arab-Israeli
+4	ו	ו	Hadash–Ta'al	16	Arab-Israeli
+5	ז	ז	Za'am	16	Micro
+6	זנ	זנ	Ahavat Yisrael	16	Micro
+7	ט	ט	Man's Rights in the Family Party	16	Micro
+8	יש	יש	Shinui	16	Secular Centre
+9	כן	כן	Yisrael BaAliyah	16	Sectoral
+10	ל	ל	National Union	16	Right
+11	ם	ם	One Nation	16	Left
+12	מחל	מחל	Likud	16	Right
+13	מרצ	מרצ	Meretz-Yachad and the Democratic Choice	16	Left
+14	נ	נ	Yisrael Aheret	16	Micro
+15	נץ	נץ	Herut – The National Movement	16	Right
+16	עם	עם	United Arab List	16	Arab-Israeli
+17	ף	ף	Leader	16	Micro
+18	פה	פה	Centre Party	16	Micro
+19	צ	צ	Tzomet	16	Micro
+20	צף	צף	Progressive National Alliance	16	Micro
+21	ק	ק	Da'am Workers Party	16	Micro
+22	קך	קך	Citizen and State	16	Micro
+23	קנ	קנ	Ale Yarok	16	Sectoral
+24	קץ	קץ	Lahava	16	Micro
+25	רק	רק	The Greens	16	Micro
+26	שס	שס	Shas	16	Orthodox
+0	אמת	אמת	Labour–Meimad	17	Left
+1	ג	ג	United Torah Judaism	17	Orthodox
+2	ד	ד	Balad	17	Arab-Israeli
+3	ה	ה	Brit Olam	17	Micro
+4	ו	ו	Hadash	17	Arab-Israeli
+5	ז	ז	Lehem	17	Micro
+6	זה	זה	Atid Ehad	17	Micro
+7	זך	זך	Gil	17	Sectoral
+8	חץ	חץ	Hetz	17	Micro
+9	טב	טב	National Union–National Religious Party	17	Right
+10	יש	יש	Shinui	17	Micro
+11	כ	כ	Jewish National Front	17	Micro
+12	כן	כן	Kadima	17	Secular Centre
+13	כץ	כץ	Tzomet	17	Micro
+14	ל	ל	Yisrael Beiteinu	17	Right
+15	מחל	מחל	Likud	17	Right
+16	מרצ	מרצ	Meretz-Yachad	17	Left
+17	נץ	נץ	Herut – The National Movement	17	Micro
+18	עם	עם	United Arab List–Ta'al	17	Arab-Israeli
+19	פ	פ	Tafnit	17	Micro
+20	פז	פז	Lev	17	Micro
+21	פכ	פכ	Oz LaAniyim	17	Micro
+22	פץ	פץ	HaLev	17	Micro
+23	ף	ף	Leader	17	Micro
+24	צה	צה	The New Zionism	17	Micro
+25	ק	ק	Da'am Workers Party	17	Micro
+26	קז	קז	Justice for All	17	Micro
+27	קנ	קנ	Ale Yarok	17	Sectoral
+28	קפ	קפ	Arab National Party	17	Micro
+29	רק	רק	Green Party	17	Sectoral
+30	שס	שס	Shas	17	Orthodox
+0	אמת	אמת	Labour Party	18	Left
+1	אר	אר	Or	18	Micro
+2	ב	ב	The Jewish Home	18	Right
+3	ג	ג	United Torah Judaism	18	Orthodox
+4	ד	ד	Balad	18	Arab-Israeli
+5	ה	ה	The Green Movement–Meimad	18	Micro
+6	ו	ו	Hadash	18	Arab-Israeli
+7	זך	זך	Gil	18	Micro
+8	חי	חי	Yisrael Hazaka	18	Micro
+9	ט	ט	National Union	18	Right
+10	ים	ים	HaYisraelim	18	Micro
+11	ינ	ינ	Lev LaOlim	18	Micro
+12	יק	יק	Holocaust Survivors and Ale Yarok Alumni	18	Micro
+13	כן	כן	Kadima	18	Secular Centre
+14	ל	ל	Yisrael Beiteinu	18	Right
+15	מחל	מחל	Likud	18	Right
+16	מרצ	מרצ	New Movement-Meretz	18	Left
+17	נ	נ	Yisrael HaMithadeshet	18	Micro
+18	נפ	נפ	Ahrayut	18	Micro
+19	נץ	נץ	Lazuz	18	Micro
+20	נר	נר	Lehem	18	Micro
+21	עם	עם	United Arab List–Ta'al	18	Arab-Israeli
+22	פ	פ	Koah LeHashpi'a	18	Micro
+23	פי	פי	Brit Olam	18	Micro
+24	פק	פק	Man's Rights in the Family Party	18	Micro
+25	ץ	ץ	Tzomet	18	Micro
+26	צי	צי	Tzabar	18	Micro
+27	ק	ק	Da'am Workers Party	18	Micro
+28	קנ	קנ	Ale Yarok	18	Micro
+29	קפ	קפ	Koah HaKesef	18	Micro
+30	קץ	קץ	Leader	18	Micro
+31	רק	רק	The Greens	18	Micro
+32	שס	שס	Shas	18	Orthodox
+0	אמת	אמת	Labour Party	19	Left
+1	ג	ג	United Torah Judaism	19	Orthodox
+2	ד	ד	Balad	19	Arab-Israeli
+3	הי	הי	Moreshet Avot	19	Micro
+4	הפ	הפ	Living with Dignity	19	Micro
+5	הק	הק	Hope for Change	19	Micro
+6	ו	ו	Hadash	19	Arab-Israeli
+7	ז	ז	Eretz Hadasha	19	Micro
+8	זך	זך	Dor	19	Micro
+9	טב	טב	The Jewish Home	19	Right
+10	יק	יק	HaYisraelim	19	Micro
+11	כן	כן	Kadima	19	Secular Centre
+12	מחל	מחל	Likud Yisrael Beiteinu	19	Right
+13	מרץ	מרץ	Meretz	19	Left
+14	נ	נ	Brit Olam	19	Micro
+15	ני	ני	Or	19	Micro
+16	נץ	נץ	Otzma LeYisrael	19	Right
+17	נק	נק	Leader	19	Micro
+18	עם	עם	United Arab List	19	Arab-Israeli
+19	פ	פ	Pirate Party	19	Micro
+20	פה	פה	Yesh Atid	19	Secular Centre
+21	פז	פז	Koah Lehashpi'a	19	Micro
+22	פי	פי	Finance Party	19	Micro
+23	פנ	פנ	We are Brothers	19	Micro
+24	פץ	פץ	We are all Friends	19	Micro
+25	ץ	ץ	Am Shalem	19	Orthodox
+26	צפ	צפ	Hatnua	19	Secular Centre
+27	צק	צק	Social Justice	19	Micro
+28	ק	ק	Da'am Workers Party	19	Micro
+29	קנ	קנ	Ale Yarok–The Liberal List	19	Sectoral
+30	רק	רק	The Greens and the Youth	19	Micro
+31	שס	שס	Shas	19	Orthodox
+0	אמת	אמת	Zionist Union	20	Left
+1	ג	ג	United Torah Judaism	20	Orthodox
+2	ודעם	ודעם	Joint List	20	Arab-Israeli
+3	ז	ז	Economy Party	20	Micro
+4	זך	זך	Democratura	20	Micro
+5	זץ	זץ	Brit Olam	20	Micro
+6	טב	טב	The Jewish Home	20	Right
+7	י	י	Living with Dignity	20	Micro
+8	יז	יז	Social Leadership	20	Micro
+9	יץ	יץ	Hope for Change	20	Micro
+10	כ	כ	Kulanu	20	Secular Centre
+11	ל	ל	Yisrael Beiteinu	20	Right
+12	מחל	מחל	Likud	20	Right
+13	מרצ	מרצ	Meretz	20	Left
+14	נז	נז	U'Bizchutan	20	Micro
+15	ני	ני	Or	20	Micro
+16	נץ	נץ	Flower Party	20	Micro
+17	ע	ע	Arab List (Mada–Arab National Party)	20	Micro
+18	פה	פה	Yesh Atid	20	Secular Centre
+19	ף	ף	Pirate Party	20	Micro
+20	ףץ	ףץ	We Are All Friends Na Nach	20	Micro
+21	קנ	קנ	Ale Yarok	20	Sectoral
+22	קץ	קץ	Yachad	20	Orthodox
+23	רק	רק	The Greens	20	Micro
+24	שס	שס	Shas	20	Orthodox
+0	אמת	אמת	Labour Party	21	Left
+1	ג	ג	United Torah Judaism	21	Orthodox
+2	דעם	דעם	United Arab List–Balad	21	Arab-Israeli
+3	ום	ום	Hadash–Ta'al	21	Arab-Israeli
+4	ז	ז	Zehut	21	Right
+5	זי	זי	Veteran Civil	21	Micro
+6	זך	זך	Brit Olam	21	Micro
+7	זץ	זץ	Tzomet	21	Micro
+8	טב	טב	Union of Right-Wing Parties	21	Right
+9	י	י	Yashar	21	Micro
+10	יז	יז	Bible Bloc	21	Micro
+11	ין	ין	Ihud Bnei HaBrit	21	Micro
+12	יץ	יץ	Ahrayut LaMeyasdim	21	Micro
+13	כ	כ	Kulanu	21	Secular Centre
+14	ךק	ךק	Hope for Change	21	Micro
+15	ל	ל	Yisrael Beiteinu	21	Right
+16	מחל	מחל	Likud	21	Right
+17	מרצ	מרצ	Meretz	21	Left
+18	נ	נ	New Right	21	Right
+19	נז	נז	Zekhuyotenu BeKoleinu	21	Micro
+20	נץ	נץ	Shield of Israel	21	Micro
+21	נר	נר	Gesher	21	Secular Centre
+22	ן	ן	Social Security	21	Micro
+23	ןך	ןך	Human Dignity	21	Micro
+24	ןנ	ןנ	Social Leadership	21	Micro
+25	פה	פה	Blue and White	21	Secular Centre
+26	ףז	ףז	Pirate Party	21	Micro
+27	ףי	ףי	Pashut Ahava	21	Micro
+28	ףך	ףך	Education	21	Micro
+29	ףנ	ףנ	Shavim	21	Micro
+30	ףץ	ףץ	We are all friends Na Nach	21	Micro
+31	צק	צק	Social Justice	21	Micro
+32	ץ	ץ	Green Economy – One Nation	21	Micro
+33	ץי	ץי	Ani VeAta	21	Micro
+34	ק	ק	Justice for All	21	Micro
+35	קי	קי	Eretz Yisrael Shelanu	21	Micro
+36	קן	קן	MeHathala	21	Micro
+37	קף	קף	Kol Yisrael Ahim	21	Micro
+38	ר	ר	The Arab List (Mada–ANP)	21	Micro
+39	שס	שס	Shas	21	Orthodox
+0	אמת	אמת	Labour–Gesher	22	Left
+1	ג	ג	United Torah Judaism	22	Orthodox
+2	ודעם	ודעם	Joint List	22	Arab-Israeli
+3	ז	ז	Economic Power	22	Micro
+4	זכ	זכ	Democracy Party	22	Micro
+5	זץ	זץ	Tzomet	22	Micro
+6	טב	טב	Yamina	22	Right
+7	י	י	Social Leadership	22	Micro
+8	יז	יז	Red and White	22	Micro
+9	ינ	ינ	Liberal Christian Movement	22	Micro
+10	יף	יף	Human Dignity	22	Micro
+11	יק	יק	Bible Bloc	22	Micro
+12	כי	כי	Popular Unity	22	Micro
+13	כף	כף	Otzma Yehudit	22	Right
+14	ל	ל	Yisrael Beiteinu	22	Right
+15	מחל	מחל	Likud	22	Right
+16	מרצ	מרצ	Democratic Union	22	Left
+17	נ	נ	Liberal Democratic Progressive Party	22	Micro
+18	נך	נך	Respect and Equality	22	Micro
+19	פה	פה	Blue and White	22	Secular Centre
+20	ףז	ףז	Pirate Party	22	Micro
+21	צ	צ	Justice	22	Micro
+22	צן	צן	North	22	Micro
+23	ץ	ץ	Da'am Workers Party	22	Micro
+24	ק	ק	Our Rights In Our Vote	22	Micro
+25	קך	קך	New Order	22	Micro
+26	קץ	קץ	Kama	22	Micro
+27	רק	רק	Secular Right	22	Micro
+28	שס	שס	Shas	22	Orthodox
+0	אמת	אמת	Labour-Gesher-Meretz	23	Left
+1	ג	ג	United Torah Judaism	23	Orthodox
+2	ודעם	ודעם	Joint List	23	Arab-Israeli
+3	ז	ז	Liberal–Economic Power	23	Micro
+4	טב	טב	Yamina	23	Right
+5	י	י	Vision	23	Micro
+6	יז	יז	Red and White	23	Micro
+7	ינ	ינ	Ihud HaBrit VeHaShutafut	23	Micro
+8	יף	יף	Human Dignity	23	Micro
+9	יק	יק	Bible Bloc	23	Micro
+10	יר	יר	Social Leadership	23	Micro
+11	כ	כ	Jewish Heart	23	Micro
+12	כן	כן	Me and You	23	Micro
+13	ל	ל	Yisrael Beiteinu	23	Right
+14	מחל	מחל	Likud	23	Right
+15	נ	נ	Women's Voice	23	Micro
+16	נז	נז	Koah Lehashpi'a	23	Micro
+17	ני	ני	Kama	23	Micro
+18	נץ	נץ	Otzma Yehudit	23	Micro
+19	נק	נק	Mitkademet	23	Micro
+20	פה	פה	Blue and White	23	Secular Centre
+21	ףז	ףז	The Pirates – For Democracy Click Here	23	Micro
+22	ץ	ץ	Da'am–Green Economy–One Nation	23	Micro
+23	ק	ק	Israelist – Our Rights in Our Vote	23	Micro
+24	קך	קך	New Order	23	Micro
+25	קץ	קץ	Mishpat Tzedek	23	Micro
+26	שס	שס	Shas	23	Orthodox
+0	אמת	אמת	Israeli Labour Party	24	Left
+1	ב	ב	Yamina	24	Right
+2	ג	ג	United Torah Judaism	24	Orthodox
+3	ודעם	ודעם	Joint List	24	Arab-Israeli
+4	ז	ז	The Israelis	24	Micro
+5	זץ	זץ	Tzomet	24	Micro
+6	ט	ט	Religious Zionist Party	24	Orthodox
+7	י	י	Social Bang – Pensioners	24	Micro
+8	יז	יז	New Economic Party	24	Micro
+9	ינ	ינ	Common Alliance	24	Micro
+10	יף	יף	Human Dignity	24	Micro
+11	יק	יק	Bible Bloc	24	Micro
+12	יר	יר	Social Leadership	24	Micro
+13	כ	כ	Jewish Heart	24	Micro
+14	כך	כך	Me and You	24	Micro
+15	כן	כן	Blue and White	24	Secular Centre
+16	ל	ל	Yisrael Beiteinu	24	Right
+17	מחל	מחל	Likud	24	Right
+18	מרצ	מרצ	Meretz	24	Left
+19	נ	נ	Kama	24	Micro
+20	ני	ני	New World	24	Micro
+21	נר	נר	Us	24	Micro
+22	עם	עם	United Arab List	24	Arab-Israeli
+23	פה	פה	Yesh Atid	24	Secular Centre
+24	ףז	ףז	Pirate Party	24	Micro
+25	צי	צי	Atzmeinu	24	Micro
+26	צכ	צכ	Ma'an – Together for a New Era	24	Micro
+27	צף	צף	Hetz	24	Micro
+28	ץ	ץ	Da'am Workers Party	24	Micro
+29	ק	ק	The Impossible – Possible	24	Micro
+30	קי	קי	Shama	24	Micro
+31	קך	קך	New Order	24	Micro
+32	קץ	קץ	Mishpat Tzedek	24	Micro
+33	ר	ר	Rapeh only Health	24	Micro
+34	רנ	רנ	Hope for Change	24	Micro
+35	רף	רף	Am Shalem	24	Micro
+36	שס	שס	Shas	24	Orthodox
+37	ת	ת	New Hope	24	Right
+0	אמת	אמת	Israeli Labour Party	25	Left
+1	אצ	אצ	Economic Freedom	25	Micro
+2	ב	ב	The Jewish Home	25	Right
+3	ג	ג	United Torah Judaism	25	Orthodox
+4	ד	ד	Balad	25	Arab-Israeli
+5	ום	ום	Hadash–Ta'al	25	Arab-Israeli
+6	ז	ז	Dawn Social Power	25	Micro
+7	זך	זך	Kama	25	Micro
+8	זנ	זנ	Koah Lehashpi'a	25	Micro
+9	זץ	זץ	Tzomet	25	Micro
+10	ט	ט	Religious Zionism-Otzma Yehudit	25	Orthodox
+11	י	י	Free Democratic Israel	25	Micro
+12	יז	יז	New Economic Party	25	Micro
+13	ינ	ינ	Common Alliance	25	Micro
+14	יץ	יץ	Order of the Hour	25	Micro
+15	יק	יק	Bible Bloc	25	Micro
+16	כן	כן	National Unity	25	Secular Centre
+17	ך	ך	Me and You	25	Micro
+18	ל	ל	Yisrael Beiteinu	25	Right
+19	מחל	מחל	Likud	25	Right
+20	מרצ	מרצ	Meretz	25	Left
+21	נז	נז	Respect for Humanity	25	Micro
+22	ני	ני	Nativ	25	Micro
+23	נף	נף	Shama	25	Micro
+24	נץ	נץ	The New Independents	25	Micro
+25	נק	נק	There’s a Direction	25	Micro
+26	נר	נר	Us	25	Micro
+27	עם	עם	United Arab List	25	Arab-Israeli
+28	פה	פה	Yesh Atid	25	Secular Centre
+29	ף	ף	Pirate Party	25	Micro
+30	צ	צ	Fiery Youth	25	Micro
+31	ץ	ץ	Social Leadership	25	Micro
+32	ק	ק	Voice of the Environment and the Living	25	Micro
+33	קי	קי	Jewish Heart	25	Micro
+34	קך	קך	New Order	25	Micro
+35	קנ	קנ	Every Vote Counts	25	Micro
+36	קץ	קץ	With Courage for You	25	Micro
+37	רז	רז	30/40	25	Micro
+38	שס	שס	Shas	25	Orthodox
+39	ת	ת	Ale Yarok–Islamic Family	25	Micro
