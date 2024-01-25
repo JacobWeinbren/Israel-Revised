@@ -1,7 +1,31 @@
 ---
 import Map from "../components/Map.astro";
-import Geocoder from "../components/Map.astro";
 import Chart from "../components/Chart.astro";
+
+const knessetYears = [
+	1992,
+	1996,
+	1999,
+	2003,
+	2006,
+	2009,
+	2013,
+	2015,
+	"Apr 2019",
+	"Sep 2019",
+	2020,
+	2021,
+	2022,
+];
+
+const optionsHtml = knessetYears
+	.map((year, i) => {
+		const knessetNumber = i + 13;
+		return `<option value="${knessetNumber}">${knessetNumber}th Knesset (${year})</option>`;
+	})
+	.join("");
+
+const dropdownHtml = `<select id="json-selector" class="p-2" onchange="window.loadNewData()">${optionsHtml}</select>`;
 ---
 
 <html>
@@ -19,27 +43,29 @@ import Chart from "../components/Chart.astro";
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
 			rel="stylesheet"
 		/>
-		<style>
-			#geocoder {
-				position: fixed;
-				top: 10px;
-				left: 10px;
-				z-index: 5;
-			}
-		</style>
 	</head>
 	<body>
 		<div id="map-container" style="height: 100vh"></div>
-		<div id="geocoder" class="geocoder"></div>
+		<div id="geocoder" class="geocoder fixed top-4 left-4 z-10"></div>
 		<div
 			id="chart-container"
-			class="fixed bottom-0 left-0 w-full max-h-[400px] z-10 flex justify-center"
+			class="fixed bottom-0 left-0 w-full max-h-[400px] z-10 flex justify-center items-center flex-col"
 		>
-			<canvas id="myChart" class="bg-white rounded border shadow p-4"
+			<div id="dropdown-container" class="mb-4">
+				<Fragment set:html={dropdownHtml} />
+			</div>
+			<canvas id="chart" class="bg-white rounded border shadow p-4"
 			></canvas>
 		</div>
 
-		<!-- Include Other Components Here -->
+		<script>
+			declare global {
+				interface Window {
+					updateChartData: (data: any) => void;
+					loadNewData: () => void;
+				}
+			}
+		</script>
 		<Map />
 		<Chart />
 	</body>

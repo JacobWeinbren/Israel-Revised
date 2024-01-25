@@ -1,5 +1,4 @@
 ---
-
 ---
 
 <div id="map-container" style="height: 100vh"></div>
@@ -7,24 +6,18 @@
 <script>
 	import { MapboxOverlay as DeckOverlay } from "@deck.gl/mapbox";
 	import { ScatterplotLayer } from "@deck.gl/layers";
-	import points from "../points/13.json";
 	import GL from "@luma.gl/constants";
 	import mapboxgl from "mapbox-gl";
 	import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 
-	declare global {
-		interface Window {
-			updateChartData: (data: any) => void;
-		}
-	}
-
-	// Your Mapbox Access Token
+	// Mapbox Access Token and Style
 	const MAPBOX_TOKEN = import.meta.env.PUBLIC_MAPBOX_TOKEN;
+	const MAPBOX_STYLE = "mapbox://styles/mapbox/dark-v11";
 
 	// Initialize the map
 	export const map = new mapboxgl.Map({
 		container: "map-container",
-		style: "mapbox://styles/mapbox/dark-v11",
+		style: MAPBOX_STYLE,
 		center: [35.3027, 31.9466],
 		zoom: 7.5,
 		projection: {
@@ -34,7 +27,7 @@
 	});
 
 	// Function to determine color based on data
-	function getColor(d) {
+	const getColor = (d) => {
 		const colors = {
 			l: [239, 68, 68],
 			r: [59, 130, 246],
@@ -43,34 +36,61 @@
 			o: [249, 115, 22],
 			m: [168, 85, 247],
 		};
-		let maxKey = Object.keys(d).reduce((a, b) => (d[a] > d[b] ? a : b));
+		const maxKey = Object.keys(d).reduce((a, b) => (d[a] > d[b] ? a : b));
 		return [...colors[maxKey], 125];
+	};
+
+	const updateMapCursor = (cursorStyle) => {
+		const canvasContainer = document.querySelector(
+			".mapboxgl-canvas-container"
+		);
+		if (canvasContainer instanceof HTMLElement) {
+			canvasContainer.style.cursor = cursorStyle;
+		}
+	};
+
+	// Function to create the ScatterplotLayer
+	function createScatterplotLayer(hoveredObject, pointsData) {
+		return new ScatterplotLayer({
+			id: "points-layer",
+			data: pointsData,
+			getPosition: (d) => d.pos,
+			getFillColor: (d) => {
+				if (hoveredObject === d) {
+					return getColor(d).map((c) => Math.min(c + 60, 255));
+				}
+				return getColor(d);
+			},
+			getRadius: (d) => (hoveredObject === d ? 1200 : 500),
+			pickable: true,
+			onHover: ({ object }) => {
+				const newLayers = [createScatterplotLayer(object, pointsData)];
+				deck.setProps({ layers: newLayers });
+				if (object) {
+					updateMapCursor("pointer");
+					window.updateChartData(object);
+				} else {
+					updateMapCursor("grab");
+				}
+			},
+			parameters: {
+				[GL.DEPTH_TEST]: false,
+				[GL.BLEND]: true,
+				[GL.BLEND_SRC_RGB]: GL.SRC_ALPHA,
+				[GL.BLEND_DST_RGB]: GL.ONE_MINUS_SRC_ALPHA,
+				[GL.BLEND_EQUATION]: GL.FUNC_ADD,
+			},
+			updateTriggers: {
+				getFillColor: [hoveredObject],
+				getRadius: [hoveredObject],
+			},
+		});
 	}
 
-	// Create a DeckOverlay with a ScatterplotLayer
+	// Initial layer setup
+	const initialLayers = [createScatterplotLayer(null, [])];
 	const deck = new DeckOverlay({
-		layers: [
-			new ScatterplotLayer({
-				id: "points-layer",
-				data: points,
-				getPosition: (d) => d.pos,
-				getFillColor: (d) => getColor(d),
-				getRadius: 500,
-				parameters: {
-					[GL.DEPTH_TEST]: false,
-					[GL.BLEND]: true,
-					[GL.BLEND_SRC_RGB]: GL.SRC_ALPHA,
-					[GL.BLEND_DST_RGB]: GL.ONE_MINUS_SRC_ALPHA,
-					[GL.BLEND_EQUATION]: GL.FUNC_ADD,
-				},
-				pickable: true,
-				onHover: ({ object }) => {
-					if (object) {
-						window.updateChartData(object);
-					}
-				},
-			}),
-		],
+		layers: initialLayers,
 	});
 
 	// Add geocoder/search box
@@ -83,6 +103,28 @@
 	if (geocoderElement) {
 		geocoderElement.appendChild(geocoder.onAdd(map));
 	}
+
+	// Function to load new data based on the selected Knesset
+	window.loadNewData = async function () {
+		const selector = document.getElementById(
+			"json-selector"
+		) as HTMLSelectElement;
+		const selectedKnesset = selector.value;
+
+		try {
+			const dataModule = await import(
+				`../points/${selectedKnesset}.json`
+			);
+			const data = dataModule.default;
+
+			const newLayers = [createScatterplotLayer(null, data)];
+			deck.setProps({ layers: newLayers });
+		} catch (error) {
+			console.error("Error loading data:", error);
+		}
+	};
+
+	window.loadNewData();
 
 	map.addControl(deck);
 </script>
