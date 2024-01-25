@@ -36,8 +36,12 @@ def read_sheet(election_num, config):
 
     for row in rows:
         try:
-            locality_number = math.floor(float(row[config["locality_num_col"]].value))
-            station_number = float(row[config["station_num_col"]].value)
+            locality_number = int(
+                math.floor(float(row[config["locality_num_col"]].value))
+            )
+            station_number = int(
+                math.floor(float(row[config["station_num_col"]].value))
+            )
         except ValueError:
             return None, None
 
