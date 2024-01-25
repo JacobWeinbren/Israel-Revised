@@ -16,7 +16,6 @@ The Election Committee has removed the files from their website, but they remain
 ## Requirements
 
 -   Python 3.x
--   Libraries: `xlrd==1.2.0[, ](file:///Users/jacobweinbren/Documents/GitHub/Israel-Revised/README.md#5%2C64-5%2C64)pyexcel[, ](file:///Users/jacobweinbren/Documents/GitHub/Israel-Revised/README.md#5%2C64-5%2C64)pandas[, ](file:///Users/jacobweinbren/Documents/GitHub/Israel-Revised/README.md#5%2C64-5%2C64)numpy[, ](file:///Users/jacobweinbren/Documents/GitHub/Israel-Revised/README.md#5%2C64-5%2C64)python-docx[, ](file:///Users/jacobweinbren/Documents/GitHub/Israel-Revised/README.md#5%2C64-5%2C64)fastnumbers[, ](file:///Users/jacobweinbren/Documents/GitHub/Israel-Revised/README.md#5%2C64-5%2C64)googlemaps[, ](file:///Users/jacobweinbren/Documents/GitHub/Israel-Revised/README.md#5%2C64-5%2C64)python-dotenv[, ](file:///Users/jacobweinbren/Documents/GitHub/Israel-Revised/README.md#5%2C64-5%2C64)tqdm`
 -   A Google API Key for `locations.py` to access the Google Maps Geocoding API.
 
 ## Output
