@@ -6,17 +6,6 @@ def create_full_address(row):
     return f"{row['Address Name']}, {row['Locality Name']}"
 
 
-def convert_to_int(column):
-    def safe_convert(value):
-        try:
-            clean_value = "".join(filter(str.isdigit, str(value).strip()))
-            return int(np.floor(float(clean_value))) if clean_value else None
-        except ValueError:
-            return None
-
-    return column.apply(safe_convert)
-
-
 locations = pd.read_csv(
     "output/locations.tsv",
     sep="\t",
@@ -45,10 +34,10 @@ for knesset, file_suffix in knesset_to_file.items():
         f"output/stations/{file_suffix}.tsv",
         sep="\t",
         skiprows=1,
-        names=["Address Name", "Locality Name", "Locality Number", "Station Number"],
+        names=["Locality Number", "Station Number", "Locality Name", "Address Name"],
     )
-    stations["Locality Number"] = convert_to_int(stations["Locality Number"])
-    stations["Station Number"] = convert_to_int(stations["Station Number"])
+    stations["Locality Number"] = stations["Locality Number"]
+    stations["Station Number"] = stations["Station Number"]
 
     elections = pd.read_csv(
         f"output/elections/{knesset}.tsv",
@@ -56,8 +45,8 @@ for knesset, file_suffix in knesset_to_file.items():
         skiprows=1,
         names=["Bloc", "Knesset", "Locality", "Station", "Votes"],
     )
-    elections["Locality"] = convert_to_int(elections["Locality"])
-    elections["Station"] = convert_to_int(elections["Station"])
+    elections["Locality"] = elections["Locality"]
+    elections["Station"] = elections["Station"]
 
     stations["Full Address"] = stations.apply(create_full_address, axis=1)
 
@@ -74,5 +63,5 @@ for knesset, file_suffix in knesset_to_file.items():
     )
 
     merged_data[["Bloc", "Knesset", "Votes", "Latitude", "Longitude"]].to_csv(
-        f"output/combined/{knesset}.csv", index=False
+        f"output/combined/{knesset}.tsv", sep="\t", index=False
     )

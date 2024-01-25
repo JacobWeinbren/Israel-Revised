@@ -1,11 +1,20 @@
+import csv
 import xlrd
 import re
-import pyexcel
 import math
+import numpy as np
 
 # Regular expressions for processing strings
 number_sub = re.compile(r"(-?[0-9]+\.?[0-9]*)")
 space_sub = re.compile(r"\s{2,}")
+
+
+def safe_convert(value):
+    try:
+        clean_value = "".join(filter(str.isdigit, str(value).strip()))
+        return int(np.floor(float(clean_value))) if clean_value else None
+    except ValueError:
+        return None
 
 
 def process_address(address):
@@ -36,14 +45,10 @@ def read_sheet(election_num, config):
 
     for row in rows:
         try:
-            locality_number = int(
-                math.floor(float(row[config["locality_num_col"]].value))
-            )
-            station_number = int(
-                math.floor(float(row[config["station_num_col"]].value))
-            )
+            locality_number = safe_convert(row[config["locality_num_col"]].value)
+            station_number = safe_convert(row[config["station_num_col"]].value)
         except ValueError:
-            return None, None
+            print(row[config["station_num_col"]].value)
 
         if locality_number and station_number:
             station_number = process_station_number(election_num, station_number)
@@ -51,15 +56,23 @@ def read_sheet(election_num, config):
             locality_name = process_address(str(row[config["locality_name_col"]].value))
 
             data.append(
-                {
-                    "Locality Number": locality_number,
-                    "Station Number": station_number,
-                    "Locality Name": locality_name,
-                    "Address Name": address_name,
-                }
+                [
+                    locality_number,
+                    station_number,
+                    locality_name,
+                    address_name,
+                ]
             )
 
-    pyexcel.save_as(records=data, dest_file_name=outname, encoding="utf-8")
+    # Using csv module to save the data as a TSV file
+    print(outname)
+    with open(outname, mode="w", newline="", encoding="utf-8") as file:
+        print(outname)
+        writer = csv.writer(file, delimiter="\t")
+        writer.writerow(
+            ["Locality Number", "Station Number", "Locality Name", "Address Name"]
+        )
+        writer.writerows(data)
 
 
 def process_elections(election_configs):

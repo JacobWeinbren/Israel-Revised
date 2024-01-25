@@ -25,4 +25,4 @@ The scripts generate output files in the `output` directory, structured as follo
 -   `output/stations/`: Contains TSV files with processed station data for each election.
 -   `output/elections/`: Contains TSV files with election results.
 -   `output/locations.tsv`: Contains geocoded locations with latitude and longitude.
--   `output/combined/`: Contains the final combined CSV files for each Knesset election.
+-   `output/combined/`: Contains the final combined TSV files for each Knesset election.
