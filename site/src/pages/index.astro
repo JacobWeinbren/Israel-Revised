@@ -25,12 +25,17 @@ const optionsHtml = knessetYears
 	})
 	.join("");
 
-const dropdownHtml = `<select id="json-selector" class="p-2" onchange="window.loadNewData()">${optionsHtml}</select>`;
+const dropdownHtml = `<label for="json-selector" class="sr-only">Select Knesset Election</label><select id="json-selector" class="p-2" onchange="window.loadNewData()">${optionsHtml}</select>`;
 ---
 
 <html>
 	<head>
-		<!-- CSS and Font Links -->
+		<title>Israeli Elections Map</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="description"
+			content="Israeli Knesset Elections 1992-2022 Mapped"
+		/>
 		<link
 			href="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css"
 			rel="stylesheet"
