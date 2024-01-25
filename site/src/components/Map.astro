@@ -1,4 +1,5 @@
 ---
+
 ---
 
 <div id="map-container" style="height: 100vh"></div>
@@ -37,7 +38,7 @@
 			m: [168, 85, 247],
 		};
 		const maxKey = Object.keys(d).reduce((a, b) => (d[a] > d[b] ? a : b));
-		return [...colors[maxKey], 125];
+		return [...colors[maxKey], 75];
 	};
 
 	const updateMapCursor = (cursorStyle) => {
