@@ -23,8 +23,11 @@ def extract_codes(row, config, knesset):
     if locality == config["military_booth"]:
         return None, None
 
-    if knesset in [13, 16, 17]:
-        station /= 10
+    if knesset in [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]:
+        locality *= 10
+
+    if knesset in [14, 15, 18, 19, 20, 21, 22, 23, 24, 25]:
+        station *= 10
 
     return math.floor(locality), math.floor(station)
 

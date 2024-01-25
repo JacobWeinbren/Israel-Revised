@@ -36,8 +36,8 @@ for knesset, file_suffix in knesset_to_file.items():
         skiprows=1,
         names=["Locality Number", "Station Number", "Locality Name", "Address Name"],
     )
-    stations["Locality Number"] = stations["Locality Number"]
-    stations["Station Number"] = stations["Station Number"]
+
+    print(len(stations))
 
     elections = pd.read_csv(
         f"output/elections/{knesset}.tsv",
@@ -45,8 +45,8 @@ for knesset, file_suffix in knesset_to_file.items():
         skiprows=1,
         names=["Bloc", "Knesset", "Locality", "Station", "Votes"],
     )
-    elections["Locality"] = elections["Locality"]
-    elections["Station"] = elections["Station"]
+
+    print(len(elections))
 
     stations["Full Address"] = stations.apply(create_full_address, axis=1)
 
@@ -61,6 +61,8 @@ for knesset, file_suffix in knesset_to_file.items():
         .merge(locations, left_on="Full Address", right_on="Address", how="left")
         .dropna(subset=["Latitude", "Longitude"])
     )
+
+    print(len(merged_data))
 
     merged_data[["Bloc", "Knesset", "Votes", "Latitude", "Longitude"]].to_csv(
         f"output/combined/{knesset}.tsv", sep="\t", index=False

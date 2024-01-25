@@ -12,6 +12,7 @@ The Election Committee has removed the files from their website, but they remain
 4. `process_elections.py` is used to process and store voting data across different Knesset elections and compile vote totals by station and bloc.
 5. The script `locations.py` requires a Google API Key to perform geocoding of addresses into latitude and longitude coordinates. This script reads TSV files, identifies unique addresses, and employs the Google Maps API for geocoding.
 6. The `combine.py` script merges station data with election results and geocoded locations to produce an extensive dataset.
+7. `points.py` processes the combined TSV files and generates a JSON file for each election with geocoded voting data, categorised by political blocs and voting counts.
 
 ## Requirements
 
@@ -26,3 +27,4 @@ The scripts generate output files in the `output` directory, structured as follo
 -   `output/elections/`: Contains TSV files with election results.
 -   `output/locations.tsv`: Contains geocoded locations with latitude and longitude.
 -   `output/combined/`: Contains the final combined TSV files for each Knesset election.
+-   `output/points/`: Contains JSON files with processed geocoded voting data for each election, categorised by political blocs.
