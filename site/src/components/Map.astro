@@ -62,7 +62,7 @@
 				}
 				return getColor(d);
 			},
-			getRadius: (d) => (hoveredObject === d ? 1200 : 500),
+			getRadius: (d) => (hoveredObject === d ? 700 : 500),
 			pickable: true,
 			onHover: ({ object }) => {
 				const newLayers = [createScatterplotLayer(object, pointsData)];
