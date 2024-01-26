@@ -1,57 +1,16 @@
 import pyexcel, math
 
 
-def load_bloc_data(file_name):
-    """Load and organise bloc data from a file into a dictionary."""
-    bloc_data = {}
+def load_bloc_data(file_name, knesset_numbers):
+    """Load bloc data for specified Knesset numbers."""
+    bloc_data = {k: [] for k in knesset_numbers}
     for record in pyexcel.get_records(file_name=file_name):
-        key = record["Knesset #"]
-        if key not in bloc_data:
-            bloc_data[key] = []
-        bloc_data[key].append((record["Bloc"], record["Excel Name"]))
+        knesset = int(record["Knesset #"])
+        if knesset in knesset_numbers:
+            bloc_data[knesset].append(
+                (record["Bloc"], record["Excel Name"], int(record["Party ID"]))
+            )
     return bloc_data
-
-
-def extract_codes(row, config, knesset):
-    """Extract locality and station codes, handling different formats based on provided columns."""
-    try:
-        locality = float(row[config["locality_col"]])
-        station = float(row[config["station_col"]])
-    except ValueError:
-        return None, None
-
-    if locality == config["military_booth"]:
-        return None, None
-
-    if knesset in [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]:
-        locality *= 10
-
-    if knesset in [14, 15, 18, 19, 20, 21, 22, 23, 24, 25]:
-        station *= 10
-
-    return math.floor(locality), math.floor(station)
-
-
-def aggregate_votes(knesset, vote_data, bloc_data, config):
-    """Aggregate vote counts for each station and bloc."""
-    aggregated_results = {}
-    for row in vote_data:
-        locality, station = extract_codes(row, config, knesset)
-        if locality is not None:
-            for bloc, excel_column in bloc_data[knesset]:
-                vote_count = int(row[excel_column])
-                key = (knesset, locality, station, bloc)
-                if key not in aggregated_results:
-                    aggregated_results[key] = {
-                        "Knesset": knesset,
-                        "Locality": locality,
-                        "Station": station,
-                        "Bloc": bloc,
-                        "Votes": 0,
-                    }
-                aggregated_results[key]["Votes"] += vote_count
-
-    return list(aggregated_results.values())
 
 
 def process_and_save_knesset_data(knesset, config, bloc_data):
@@ -60,19 +19,56 @@ def process_and_save_knesset_data(knesset, config, bloc_data):
         file_name=config["book"],
         sheet_name=config["sheet"],
         start_row=config["header_row"],
-    )
+    )[config["skip_rows"] :]
 
-    vote_data = vote_data[config["skip_rows"] :]
+    aggregated_results = {}
+    for row in vote_data:
+        locality, station = extract_codes(row, config, knesset)
+        if locality is None:
+            continue
 
-    results = aggregate_votes(knesset, vote_data, bloc_data, config)
+        for bloc, excel_column, party_id in bloc_data.get(knesset, []):
+            if excel_column in row:
+                vote_count = int(row[excel_column])
+                key = (knesset, locality, station, bloc, party_id)
+                aggregated_results.setdefault(
+                    key,
+                    {
+                        "Knesset": knesset,
+                        "Locality": locality,
+                        "Station": station,
+                        "Bloc": bloc,
+                        "Votes": 0,
+                        "Party": party_id,
+                    },
+                )["Votes"] += vote_count
 
     file_name = f"output/elections/{knesset}.tsv"
-    pyexcel.save_as(records=results, dest_file_name=file_name)
+    pyexcel.save_as(
+        records=aggregated_results.values(), dest_file_name=file_name, delimiter=","
+    )
+
+
+def extract_codes(row, config, knesset):
+    """Extract locality and station codes, handling different formats based on provided columns."""
+    try:
+        locality = float(row[config["locality_col"]])
+        station = float(row[config["station_col"]])
+        if locality == config["military_booth"]:
+            return None, None
+
+        if knesset in [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]:
+            locality *= 10
+        if knesset in [14, 15, 18, 19, 20, 21, 22, 23, 24, 25]:
+            station *= 10
+
+        return int(locality), int(station)
+    except ValueError:
+        return None, None
 
 
 def main():
     """Main function to process and save voting data for multiple Knesset years."""
-    bloc_data = load_bloc_data("data/Blocs.tsv")
 
     knesset_data = {
         13: {
@@ -193,6 +189,9 @@ def main():
             "military_booth": 9999,
         },
     }
+
+    knesset_numbers = knesset_data.keys()
+    bloc_data = load_bloc_data("data/Blocs.tsv", knesset_numbers)
 
     for knesset, config in knesset_data.items():
         print(f"Processing Knesset: {knesset}")

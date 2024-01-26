@@ -30,15 +30,29 @@
 	// Function to determine color based on data
 	const getColor = (d) => {
 		const colors = {
-			l: [239, 68, 68],
-			r: [59, 130, 246],
-			a: [34, 197, 94],
-			c: [234, 179, 8],
-			o: [249, 115, 22],
-			m: [168, 85, 247],
+			Right: [59, 130, 246],
+			Left: [239, 68, 68],
+			"Secular Centre": [234, 179, 8],
+			Orthodox: [249, 115, 22],
+			"Arab-Israeli": [34, 197, 94],
+			Micro: [249, 115, 22],
 		};
-		const maxKey = Object.keys(d).reduce((a, b) => (d[a] > d[b] ? a : b));
-		return [...colors[maxKey], 75];
+		// Sum the values of the parties inside each bloc
+		const blocSums = Object.entries(d.parties).reduce(
+			(acc, [bloc, parties]) => {
+				acc[bloc] = Object.values(parties).reduce(
+					(sum, value) => sum + value,
+					0
+				);
+				return acc;
+			},
+			{}
+		);
+		// Find the bloc with the highest sum
+		const maxBloc = Object.keys(blocSums).reduce((a, b) =>
+			blocSums[a] > blocSums[b] ? a : b
+		);
+		return [...colors[maxBloc], 75];
 	};
 
 	const updateMapCursor = (cursorStyle) => {
@@ -49,6 +63,8 @@
 			canvasContainer.style.cursor = cursorStyle;
 		}
 	};
+
+	let lastHoveredObject = null;
 
 	// Function to create the ScatterplotLayer
 	function createScatterplotLayer(hoveredObject, pointsData) {
@@ -65,13 +81,18 @@
 			getRadius: (d) => (hoveredObject === d ? 700 : 500),
 			pickable: true,
 			onHover: ({ object }) => {
-				const newLayers = [createScatterplotLayer(object, pointsData)];
-				deck.setProps({ layers: newLayers });
-				if (object) {
-					updateMapCursor("pointer");
-					window.updateChartData(object);
-				} else {
-					updateMapCursor("grab");
+				if (object !== lastHoveredObject) {
+					lastHoveredObject = object;
+					const newLayers = [
+						createScatterplotLayer(object, pointsData),
+					];
+					deck.setProps({ layers: newLayers });
+					if (object) {
+						updateMapCursor("pointer");
+						window.updateChartData(object);
+					} else {
+						updateMapCursor("grab");
+					}
 				}
 			},
 			parameters: {

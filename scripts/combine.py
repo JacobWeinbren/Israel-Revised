@@ -43,7 +43,7 @@ for knesset, file_suffix in knesset_to_file.items():
         f"output/elections/{knesset}.tsv",
         sep="\t",
         skiprows=1,
-        names=["Bloc", "Knesset", "Locality", "Station", "Votes"],
+        names=["Bloc", "Knesset", "Locality", "Party", "Station", "Votes"],
     )
 
     print(len(elections))
@@ -64,6 +64,6 @@ for knesset, file_suffix in knesset_to_file.items():
 
     print(len(merged_data))
 
-    merged_data[["Bloc", "Knesset", "Votes", "Latitude", "Longitude"]].to_csv(
+    merged_data[["Bloc", "Knesset", "Party", "Votes", "Latitude", "Longitude"]].to_csv(
         f"output/combined/{knesset}.tsv", sep="\t", index=False
     )

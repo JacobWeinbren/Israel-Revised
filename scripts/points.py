@@ -11,31 +11,22 @@ def process_tsv_file(file_path):
         for row in reader:
             pos_key = (float(row["Longitude"]), float(row["Latitude"]))
             bloc = row["Bloc"]
+            party = row["Party"]
             votes = int(row["Votes"]) if row["Votes"].isdigit() else 0
 
             if pos_key not in location_data:
                 location_data[pos_key] = {
                     "pos": list(pos_key),
-                    "l": 0,
-                    "r": 0,
-                    "a": 0,
-                    "c": 0,
-                    "m": 0,
-                    "o": 0,
+                    "parties": {}
                 }
 
-            if bloc == "Left":
-                location_data[pos_key]["l"] += votes
-            elif bloc == "Right":
-                location_data[pos_key]["r"] += votes
-            elif bloc == "Arab-Israeli":
-                location_data[pos_key]["a"] += votes
-            elif bloc == "Secular Centre":
-                location_data[pos_key]["c"] += votes
-            elif bloc == "Micro":
-                location_data[pos_key]["m"] += votes
-            elif bloc == "Orthodox":
-                location_data[pos_key]["o"] += votes
+            if bloc not in location_data[pos_key]["parties"]:
+                location_data[pos_key]["parties"][bloc] = {}
+
+            if party not in location_data[pos_key]["parties"][bloc]:
+                location_data[pos_key]["parties"][bloc][party] = 0
+
+            location_data[pos_key]["parties"][bloc][party] += votes
 
     return list(location_data.values())
 

@@ -4,6 +4,7 @@
 
 <script>
 	import Chart from "chart.js/auto";
+	import Blocs from "../data/Blocs.json";
 
 	const chartElement = document.getElementById("chart");
 	let myChart;
@@ -22,23 +23,12 @@
 						"Arab-Israel",
 						"Micro",
 					],
-					datasets: [
-						{
-							data: [0, 0, 0, 0, 0, 0],
-							backgroundColor: [
-								"rgba(59, 130, 246)",
-								"rgba(239, 68, 68)",
-								"rgba(234, 179, 8)",
-								"rgba(249, 115, 22)",
-								"rgba(34, 197, 94)",
-								"rgba(168, 85, 247)",
-							],
-						},
-					],
+					datasets: [], // This will be populated dynamically
 				},
 				options: {
 					scales: {
 						y: {
+							stacked: true, // Enable stacking
 							beginAtZero: true,
 							max: 100,
 							title: {
@@ -52,6 +42,7 @@
 							},
 						},
 						x: {
+							stacked: true, // Enable stacking
 							title: {
 								display: true,
 								text: "Bloc",
@@ -69,12 +60,6 @@
 						},
 						legend: { display: false },
 						tooltip: {
-							callbacks: {
-								label: (context) =>
-									context.parsed.y !== null
-										? `${context.parsed.y}%`
-										: "",
-							},
 							titleFont: {
 								size: 16,
 								family: "Inter",
@@ -93,33 +78,94 @@
 		}
 	}
 
-	type Data = {
-		l: number;
-		r: number;
-		c: number;
-		o: number;
-		a: number;
-		m: number;
-	};
+	// Function to darken the colour
+	const darkenColor = (color, amount) =>
+		color.map((value) => Math.max(value - amount, 0));
 
-	window.updateChartData = function (data: Data) {
+	// Function to update the chart with new data
+	window.updateChartData = function (data) {
 		if (myChart) {
-			// Calculate the total sum of all categories
-			const total = data.l + data.r + data.c + data.o + data.a + data.m;
+			const blocColors = {
+				Right: [59, 130, 246],
+				Left: [239, 68, 68],
+				"Secular Centre": [234, 179, 8],
+				Orthodox: [249, 115, 22],
+				"Arab-Israeli": [34, 197, 94],
+				Micro: [168, 85, 247],
+			};
 
-			// Define an array with keys in the specific order
-			const keys: (keyof Data)[] = ["r", "l", "c", "o", "a", "m"];
-			let percentages: string[] = [];
+			// Calculate total votes per bloc to determine percentages
+			let grandTotalVotes = 0;
+			for (const parties of Object.values(data.parties)) {
+				for (const votes of Object.values(parties)) {
+					grandTotalVotes += votes;
+				}
+			}
 
-			// Calculate the percentage for each category in the specified order
-			keys.forEach((key) => {
-				percentages.push(
-					total > 0 ? ((data[key] / total) * 100).toFixed(1) : "0.0"
-				);
+			// Update datasets for each party with percentage of the grand total votes
+			const newDatasets = [];
+			const blocOrder = [
+				"Right",
+				"Left",
+				"Secular Centre",
+				"Orthodox",
+				"Arab-Israeli",
+				"Micro",
+			]; // Define the order of blocs
+			blocOrder.forEach((bloc, blocIndex) => {
+				// Iterate over blocs in the defined order
+				const parties = data.parties[bloc];
+				if (parties) {
+					Object.entries(parties).forEach(
+						([partyId, votes], partyIndex) => {
+							const baseColor = blocColors[bloc];
+							const color = darkenColor(
+								baseColor,
+								partyIndex * 30
+							).concat(0.7);
+							const percentageOfTotal =
+								(Number(votes) / Number(grandTotalVotes)) * 100;
+
+							// Find or create dataset for the party
+							let dataset = myChart.data.datasets.find(
+								(d) => d.label === partyId
+							);
+							if (!dataset) {
+								// Create new dataset if it doesn't exist
+								dataset = {
+									label: partyId,
+									data: Array(
+										myChart.data.labels.length
+									).fill(null), // Initialize with null
+									backgroundColor: `rgba(${color.join(",")})`,
+								};
+								myChart.data.datasets.push(dataset);
+							}
+							newDatasets.push(dataset);
+							dataset.data[blocIndex] = percentageOfTotal; // Use blocIndex from the defined order
+						}
+					);
+				}
 			});
 
-			// Update the chart data with the calculated percentages
-			myChart.data.datasets[0].data = percentages;
+			// Remove any datasets that are no longer present
+			myChart.data.datasets = myChart.data.datasets.filter((dataset) =>
+				newDatasets.includes(dataset)
+			);
+
+			// Update the tooltip configuration
+			myChart.options.plugins.tooltip.callbacks.label = function (
+				context
+			) {
+				const partyId = context.dataset.label;
+				const partyName = Blocs[partyId]; // Get the party name using the party ID
+				const percentage =
+					context.parsed.y !== null
+						? context.parsed.y.toFixed(1)
+						: "";
+				return `${partyName}: ${percentage}%`; // Return the string with party name and percentage
+			};
+
 			myChart.update();
 		}
 	};
