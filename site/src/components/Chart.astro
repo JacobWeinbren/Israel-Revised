@@ -29,16 +29,12 @@
 					animation: {
 						duration: 600,
 					},
+					aspectRatio: 1.2,
 					scales: {
 						y: {
 							stacked: true,
 							beginAtZero: true,
 							max: 100,
-							title: {
-								display: true,
-								text: "Percentage",
-								font: { size: 16, family: "Inter" },
-							},
 							ticks: {
 								callback: (value) => `${value}%`,
 								font: { size: 16, family: "Inter" },
@@ -46,11 +42,6 @@
 						},
 						x: {
 							stacked: true, // Enable stacking
-							title: {
-								display: true,
-								text: "Bloc",
-								font: { size: 16, family: "Inter" },
-							},
 							ticks: { font: { size: 16, family: "Inter" } },
 						},
 					},
@@ -67,12 +58,20 @@
 								size: 16,
 								family: "Inter",
 							},
+							animation: false,
+							backgroundColor: "rgba(0, 0, 0, 1)",
+							callbacks: {
+								title: function () {
+									return "";
+								},
+							},
 							bodyFont: {
 								size: 16,
 								family: "Inter",
 							},
 							usePointStyle: true,
 							boxPadding: 5,
+							padding: 10,
 						},
 					},
 					elements: { bar: { borderRadius: 2 } },
@@ -124,7 +123,7 @@
 							const baseColor = blocColors[bloc];
 							const color = darkenColor(
 								baseColor,
-								partyIndex * 30
+								partyIndex * 50
 							).concat(0.7);
 							const percentageOfTotal =
 								(Number(votes) / Number(grandTotalVotes)) * 100;
