@@ -23,12 +23,15 @@
 						"Arab-Israel",
 						"Micro",
 					],
-					datasets: [], // This will be populated dynamically
+					datasets: [],
 				},
 				options: {
+					animation: {
+						duration: 500,
+					},
 					scales: {
 						y: {
-							stacked: true, // Enable stacking
+							stacked: true,
 							beginAtZero: true,
 							max: 100,
 							title: {
@@ -111,7 +114,7 @@
 				"Orthodox",
 				"Arab-Israeli",
 				"Micro",
-			]; // Define the order of blocs
+			];
 			blocOrder.forEach((bloc, blocIndex) => {
 				// Iterate over blocs in the defined order
 				const parties = data.parties[bloc];
@@ -136,13 +139,13 @@
 									label: partyId,
 									data: Array(
 										myChart.data.labels.length
-									).fill(null), // Initialize with null
+									).fill(null),
 									backgroundColor: `rgba(${color.join(",")})`,
 								};
 								myChart.data.datasets.push(dataset);
 							}
 							newDatasets.push(dataset);
-							dataset.data[blocIndex] = percentageOfTotal; // Use blocIndex from the defined order
+							dataset.data[blocIndex] = percentageOfTotal;
 						}
 					);
 				}
@@ -158,12 +161,12 @@
 				context
 			) {
 				const partyId = context.dataset.label;
-				const partyName = Blocs[partyId]; // Get the party name using the party ID
+				const partyName = Blocs[partyId];
 				const percentage =
 					context.parsed.y !== null
 						? context.parsed.y.toFixed(1)
 						: "";
-				return `${partyName}: ${percentage}%`; // Return the string with party name and percentage
+				return `${partyName}: ${percentage}%`;
 			};
 
 			myChart.update();
