@@ -62,8 +62,8 @@
 									const partyName =
 										Blocs[context.dataset.label] || "";
 									const truncatedPartyName =
-										partyName.length > 20
-											? `${partyName.substring(0, 20)}...`
+										partyName.length > 25
+											? `${partyName.substring(0, 25)}...`
 											: partyName;
 									const percentage =
 										context.parsed.y?.toFixed(1) || "";
