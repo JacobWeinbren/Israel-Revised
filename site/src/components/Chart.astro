@@ -8,6 +8,7 @@
 
 	const chartElement = document.getElementById("chart");
 	let myChart;
+	console.log("Test");
 
 	if (chartElement) {
 		const ctx = (chartElement as HTMLCanvasElement).getContext("2d");
@@ -37,27 +38,20 @@
 							max: 100,
 							ticks: {
 								callback: (value) => `${value}%`,
-								font: { size: 16, family: "Inter" },
 							},
 						},
 						x: {
 							stacked: true, // Enable stacking
-							ticks: { font: { size: 16, family: "Inter" } },
 						},
 					},
 					plugins: {
 						title: {
 							display: true,
 							text: "Bloc Percentage at Polling Station",
-							font: { size: 16, family: "Inter" },
 							padding: { bottom: 20 },
 						},
 						legend: { display: false },
 						tooltip: {
-							titleFont: {
-								size: 16,
-								family: "Inter",
-							},
 							animation: false,
 							backgroundColor: "rgba(0, 0, 0, 1)",
 							callbacks: {
@@ -76,13 +70,9 @@
 									return `${truncatedPartyName}: ${percentage}%`;
 								},
 							},
-							bodyFont: {
-								size: 16,
-								family: "Inter",
-							},
 							usePointStyle: true,
 							boxPadding: 5,
-							padding: 10,
+							padding: 5,
 						},
 					},
 					elements: { bar: { borderRadius: 2 } },
@@ -165,7 +155,6 @@
 			myChart.data.datasets = myChart.data.datasets.filter((dataset) =>
 				newDatasets.includes(dataset)
 			);
-
 			myChart.update();
 		}
 	};
