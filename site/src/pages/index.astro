@@ -25,7 +25,7 @@ const optionsHtml = knessetYears
 	})
 	.join("");
 
-const dropdownHtml = `<label for="json-selector" class="sr-only">Select Knesset Election</label><select id="json-selector" class="p-2 fixed bottom-[calc(4rem+350px)] left-1/2 transform -translate-x-1/2 z-10" onchange="window.loadNewData()">${optionsHtml}</select>`;
+const dropdownHtml = `<label for="json-selector" class="sr-only">Select Knesset Election</label><select id="json-selector" class="p-2 fixed bottom-[calc(4rem+300px)] left-1/2 transform -translate-x-1/2 z-10" onchange="window.loadNewData()">${optionsHtml}</select>`;
 ---
 
 <html>
@@ -51,7 +51,7 @@ const dropdownHtml = `<label for="json-selector" class="sr-only">Select Knesset 
 		<Fragment set:html={dropdownHtml} />
 		<canvas
 			id="chart"
-			class="bg-white max-h-[350px] max-w-[500px] rounded border shadow p-4 z-10 fixed bottom-10 left-1/2 transform -translate-x-1/2"
+			class="bg-white max-h-[300px] max-w-[500px] rounded border shadow p-4 z-10 fixed bottom-10 left-1/2 transform -translate-x-1/2"
 		></canvas>
 
 		<script>
