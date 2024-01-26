@@ -64,6 +64,17 @@
 								title: function () {
 									return "";
 								},
+								label: function (context) {
+									const partyName =
+										Blocs[context.dataset.label] || "";
+									const truncatedPartyName =
+										partyName.length > 20
+											? `${partyName.substring(0, 20)}...`
+											: partyName;
+									const percentage =
+										context.parsed.y?.toFixed(1) || "";
+									return `${truncatedPartyName}: ${percentage}%`;
+								},
 							},
 							bodyFont: {
 								size: 16,
@@ -154,19 +165,6 @@
 			myChart.data.datasets = myChart.data.datasets.filter((dataset) =>
 				newDatasets.includes(dataset)
 			);
-
-			// Update the tooltip configuration
-			myChart.options.plugins.tooltip.callbacks.label = function (
-				context
-			) {
-				const partyId = context.dataset.label;
-				const partyName = Blocs[partyId];
-				const percentage =
-					context.parsed.y !== null
-						? context.parsed.y.toFixed(1)
-						: "";
-				return `${partyName}: ${percentage}%`;
-			};
 
 			myChart.update();
 		}
