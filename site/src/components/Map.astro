@@ -35,7 +35,7 @@
 			"Secular Centre": [234, 179, 8],
 			Orthodox: [249, 115, 22],
 			"Arab-Israeli": [34, 197, 94],
-			Micro: [249, 115, 22],
+			Micro: [168, 85, 247],
 		};
 		// Sum the values of the parties inside each bloc
 		const blocSums = Object.entries(d.parties).reduce(
@@ -52,7 +52,7 @@
 		const maxBloc = Object.keys(blocSums).reduce((a, b) =>
 			blocSums[a] > blocSums[b] ? a : b
 		);
-		return [...colors[maxBloc], 75];
+		return [...colors[maxBloc], 100];
 	};
 
 	const updateMapCursor = (cursorStyle) => {
